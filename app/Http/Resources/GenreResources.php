@@ -21,6 +21,10 @@ class GenreResources extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
+                'total_beats' => $this->beats->count(),
+                'total_plays' => $this->total_plays,
+                'total_downloads' => $this->total_downloads,
+                'total_uploads' => $this->total_uploads,
             ],
 
             'beats' => $this->beats,

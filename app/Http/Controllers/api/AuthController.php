@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Artiste;
-use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
+use App\Services\MediaService;
 use Illuminate\Http\JsonResponse;
 use App\Models\{User, Producer, };
 use App\Http\Requests\LoginRequest;
@@ -22,25 +23,30 @@ class AuthController extends Controller
     {
         $data = $request->all();
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'profile_image' => $request->profile_image,
-            'user_type' => $request->user_type,
-            'password' => $request->password,
-            'confirm_password' => $request->confirm_password,
-        ]);
+        if ($request->hasFile('profile_picture')) {
+            $imageUrl = MediaService::uploadImage($request->file('profile_picture'), 'profileImages');
+        }
+
+        $user = User::create(array_merge(
+            $request->validated(),
+            [
+                'username' =>  $request->username,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'profile_picture' => $imageUrl,
+                'user_type' => $request->user_type,
+                'password' => $request->password,
+                'confirm_password' => $request->confirm_password,
+            ]
+        ));
 
         if ($data['user_type'] === 'producer') {
-            $producer  =  Producer::create(['user_id' => $user->id]);
-            $producer->assignRole('producer');
-
+            $user->producers()->create(['user_id' => $user->id]);
         } elseif ($data['user_type'] === 'artiste') {
-            $artiste  =  Artiste::create(['user_id' => $user->id]);
-            $artiste->assignRole('artiste');
-
+            $user->artistes()->create(['user_id' => $user->id]);
         }
-        
+       
         return $this->successResponse('User created successfully', [
             'user' => new UserResources($user)
         ]);
@@ -55,7 +61,7 @@ class AuthController extends Controller
             return $this->errorResponse('Invalid credentials', 401);
         }
 
-        $token = $user->createToken("$user->name token")->accessToken;
+        $token = $user->createToken($user->email, [$user->user_type])->accessToken;
 
         return $this->successResponse('User logged in successfully', [
             'token' => $token,

@@ -68,4 +68,14 @@ class GenreController extends Controller
             return $this->okResponse('Genre not deleted');
         }
     }
+
+    public function trending(): JsonResponse
+    {
+        try {
+            $genres = Genre::orderBy('total_plays', 'desc')->take(10)->get();
+            return $this->successResponse('Trending genres retrieved successfully', GenreResources::collection($genres));
+        } catch (\Throwable $th) {
+            return $this->okResponse('Trending genres not found');
+        }
+    }
 }

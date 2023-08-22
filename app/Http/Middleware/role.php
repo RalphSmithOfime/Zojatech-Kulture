@@ -15,18 +15,17 @@ class role
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $requiredRole): Response
     {
         $user = Auth()->user();
 
 
-        //Check if user is a producer
-        if ($user &&  $user->user_type === 'producer') {
-            return $next($request);
-        } else {
+        if (!$user->tokenCan($requiredRole)) {
             return response()->json([
-                'message' => 'You are not authorized to perform this action'
-            ], 403);
+                'message' => 'You are not authorized to access this resource'
+            ], Response::HTTP_FORBIDDEN);
         }
+
+        return $next($request);
     }
 }

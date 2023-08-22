@@ -23,7 +23,9 @@ class BeatController extends Controller
     {
         //
         $beats = Beat::all();
-        return $this->successResponse('Beats retrieved successfully', BeatResources::collection($beats));
+
+        $beats = Beat::latest()->paginate(10)->through(fn ($beat) => new BeatResources($beat));
+        return $this->successResponse('Beats retrieved successfully', $beats);
     }
 
 
@@ -77,6 +79,12 @@ class BeatController extends Controller
 
             //update producer beats count
             $producer->increment('total_beats');
+
+            //update Genere
+            $genre->increment('total_uploads');
+            $genre->increment('number_of_beats');
+
+
 
             return $this->successResponse('Beat uploaded successfully', new BeatResources($beat), 201);
         } catch (\Throwable $th) {
@@ -139,6 +147,7 @@ class BeatController extends Controller
     {
         try {
             $beat = Beat::find($id);
+          
     
             if (!$beat) {
                 return $this->errorResponse('Beat not found');
@@ -159,6 +168,12 @@ class BeatController extends Controller
     
             //update beat download count
             $beat->increment('download_count'); 
+
+            //update producer download count
+            $beat->producer->increment('total_downloads');
+
+            //update genre download count
+            $beat->genre->increment('total_downloads');
 
             return response()->stream(function () use ($fileContent) {
                 echo $fileContent;

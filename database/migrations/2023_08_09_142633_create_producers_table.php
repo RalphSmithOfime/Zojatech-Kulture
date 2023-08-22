@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('total_sales')->default('0');
             $table->integer('total_beats')->default('0');
             $table->integer('profile_views')->default('0');
-            
             $table->integer('total_beats_sold')->default('0');
             $table->timestamps();
 

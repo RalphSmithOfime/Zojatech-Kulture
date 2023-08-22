@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('genres', function (Blueprint $table) {
             $table->ulid('id')->primary()->uniqid();
             $table->string('name');
+            $table->integer('total_plays')->default(0);
+            $table->integer('total_downloads')->default(0);
+            $table->integer('total_uploads')->default(0);
+            $table->integer('number_of_beats')->default(0);
             $table->timestamps();
         });
     }

@@ -5,10 +5,10 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Artiste;
+use Spatie\MediaLibrary\HasMedia;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasPermissions;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +17,7 @@ use Illuminate\Support\Arr;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUlids, HasRoles, HasPermissions;
+    use HasApiTokens, HasFactory, Notifiable, HasUlids;
 
     /**
      * The attributes that are mass assignable.
@@ -25,11 +25,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'confirm_password',
         'user_type',
+        'profile_picture'
     ];
 
     /**
@@ -51,6 +54,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'confirm_password' => 'hashed'
     ];
 
     /**
@@ -58,18 +62,12 @@ class User extends Authenticatable
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<\App\Models\Producer>
      */
-    public function producer(): HasOne
+    public function producers(): HasOne
     {
         return $this->hasOne(Producer::class);
     }
 
-    /**
-     * Get the artiste associated with the user.
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<\App\Models\Artiste>
-     */
-
-    public function artiste(): HasOne
+    public function artistes(): HasOne
     {
         return $this->hasOne(Artiste::class);
     }
@@ -78,10 +76,10 @@ class User extends Authenticatable
     {
         return 'api';
     }
-
-
-    // public function artist(): HasOne
+    
+    // public function profile_picture(): Attribute
     // {
-    //     return $this->hasOne(Artist::class);
+    //     return Attribute::make(get: fn () => $this->getFirstMedia('profile_picture') ?: null);
     // }
+
 }

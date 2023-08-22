@@ -23,7 +23,9 @@ class SignUpRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|string',
+            'username' => 'required|string|unique:users,username',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|string|min:8|same:confirm_password',
