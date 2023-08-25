@@ -76,6 +76,11 @@ class User extends Authenticatable
     {
         return 'api';
     }
+
+    public function favouriteBeats()
+    {
+        return $this->belongsToMany(Beat::class, 'favourites', 'user_id', 'beat_id');
+    }
     
     // public function profile_picture(): Attribute
     // {

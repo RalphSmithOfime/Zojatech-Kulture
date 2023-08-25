@@ -183,5 +183,20 @@ class BeatController extends Controller
             return $this->errorResponse($th->getMessage());
         }
     }
+
+    public function favorite(Beat $beat)
+    {
+        $user = Auth::user();
+        
+        if (!$user->favoriteBeats->contains($beat)) {
+            $user->favoriteBeats()->attach($beat);
+
+            // Add code to send a notification to the beat owner
+
+            return redirect()->back()->with('success', 'Beat favorited!');
+        }
+
+        return redirect()->back()->with('error', 'Beat already favorited.');
+    }
     
 }

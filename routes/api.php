@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\api\{AuthController, BeatController, GenreController, UserController, ProducerController};
+use App\Http\Controllers\api\{AuthController, BeatController, GenreController, UserController, ProducerController, FavouriteController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckOwnership;
 
@@ -97,5 +97,14 @@ Route::prefix('v1')->group(function () {
         Route::prefix('downloads')->group(function () {
             Route::get('/beats/{id}', [BeatController::class, 'download'])->name('beats.download');
         });
+
+        //FAVOURITE CONTROLLER
+        Route::group(['middleware' => [UserFav::class]], static function () {
+            Route::get('/user/favourites', [FavouriteController::class, 'index'])->name('favourite.index');
+        });
+
+        Route::post('beats/{id}/favorites', 'BeatController@favorite')->name('beats.favorite');
+
+
     });
 });
