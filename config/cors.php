@@ -17,18 +17,38 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['POST', 'GET', 'DELETE', 'PUT', 'OPTIONS', '*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://kulture-lac.vercel.app/',
+        'https://zojatech-kulture.netlify.app/',
+        'http://127.0.0.1:5174/',
+        'http://127.0.0.1:5173/',
+        'exp://172.20.10.4:19000',
+        'http://172.20.10.4:19000',
+        'exp://172.20.10.4:19001',
+        'http://172.20.10.4:19001',
+        'http://localhost:5173',
+        'http://localhost:19006' .
+            '*'
+    ],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => [
+        'X-Custom-Header',
+        'Upgrade-Insecure-Requests',
+        'X-PINGOTHER',
+        'Content-Type',
+        'Origin, X-Requested-With, Content-Type, Accept',
+        '*'
+    ],
 
     'exposed_headers' => [],
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
+
 
 ];

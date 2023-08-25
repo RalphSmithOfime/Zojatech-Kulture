@@ -5,7 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Artiste;
-use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -58,6 +58,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * Generate token based on user Type
+     */
+
+    public function generateToken(): string
+    {
+        if (Str::contains($this->email, 'zojatech.com')) {
+
+            $token = $this->createToken($this->email, ['admin'])->accessToken;
+        } else {
+            $token = $this->createToken($this->email, [$this->user_type])->accessToken;
+        }
+
+        return $token;
+    }
+
+    /**
      * Get the producer associated with the user.
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<\App\Models\Producer>
@@ -81,10 +97,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Beat::class, 'favourites', 'user_id', 'beat_id');
     }
-    
-    // public function profile_picture(): Attribute
-    // {
-    //     return Attribute::make(get: fn () => $this->getFirstMedia('profile_picture') ?: null);
-    // }
-
 }

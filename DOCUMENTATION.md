@@ -6,7 +6,7 @@ Welcome to the documentation for the Kulture App API. This document provides inf
 
 Before using the API, you need to authenticate. Here are the authentication routes:
 
-### Register
+### REGISTER
 
 Endpoint: `POST /api/v1/register`
 
@@ -51,3 +51,40 @@ Response Body:
     }
 }
 ```
+
+### LOGIN
+
+Endpoint: `POST /api/v1/signin`
+
+Request Body:
+
+```json
+{
+  "email": "reequired | unique",
+  "password": "required| min:8",
+}
+```
+Response Body
+
+```json
+{
+    "status": true,
+    "message": "User logged in successfully",
+    "data": {
+        "token": "token",
+        "user": {
+            "id": "01h8cbbpmnxent1cys6wbtrc6y",
+            "type": "users",
+            "attributes": {
+                "username": "@adeyinka",
+                "first_name": "Felipe",
+                "last_name": "Alysson",
+                "email": "abisoye@gmail.com",
+                "profile_picture": "https://res.cloudinary.com/dvn1eznus/image/upload/v1692631684/profileImages/acqn3droaneqmfecb5gk.jpg",
+                "user_type": "producer",
+                "created_at": "2023-08-21T15:28:05.000000Z",
+                "updated_at": "2023-08-21T15:28:05.000000Z"
+            }
+        }
+    }
+}
