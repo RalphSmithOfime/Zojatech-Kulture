@@ -72,7 +72,7 @@ class GenreController extends Controller
     public function trending(): JsonResponse
     {
         try {
-            $genres = Genre::orderBy('total_plays', 'desc')->take(10)->get();
+            $genres = Genre::orderBy('total_uploads', 'desc ')->take(10)->get();
             return $this->successResponse('Trending genres retrieved successfully', GenreResources::collection($genres));
         } catch (\Throwable $th) {
             return $this->okResponse('Trending genres not found');

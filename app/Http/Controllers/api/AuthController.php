@@ -34,7 +34,7 @@ class AuthController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'profile_picture' => $imageUrl,
+                'profile_picture' => $imageUrl ?? '',
                 'user_type' => $request->user_type,
                 'password' => $request->password,
                 'confirm_password' => $request->confirm_password,
@@ -60,6 +60,8 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return $this->errorResponse('Invalid credentials', 401);
         }
+
+        $token = $user->generateToken();
 
         $token = $user->createToken($user->email, [$user->user_type])->accessToken;
 
