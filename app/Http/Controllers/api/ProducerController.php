@@ -52,11 +52,10 @@ class ProducerController extends Controller
     public function trendingProducers(): JsonResponse
     {
         try {
-            $producers = Producer::with('user')->orderBy('profile_views', 'desc')->limit(10)->get();
 
-            return $this->successResponse('Trending producers retrieved successfully', [
-                'data' => $producers
-            ]);
+
+            $producers = Producer::with('user')->orderBy('profile_views', 'desc')->paginate(5)->through(fn ($producer) => new ProducerResources($producer));
+            return $this->successResponse('Trending Producers retrieved successfully', $producers);
         } catch (\Throwable $th) {
             return $this->errorResponse('Trending producers not found');
         }

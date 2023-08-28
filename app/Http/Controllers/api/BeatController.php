@@ -133,11 +133,12 @@ class BeatController extends Controller
         }
     }
 
-    public function trending(): JsonResponse
+    public function trending(Request $request): JsonResponse
     {
         try {
-            $beats = Beat::orderBy('view_count', 'desc')->take(10)->get();
-            return $this->successResponse('Trending beats retrieved successfully', BeatResources::collection($beats));
+            $beats = Beat::orderBy('view_count', 'desc')->paginate(5)->through(fn ($beat) => new BeatResources($beat));
+            return $this->successResponse('Trending Beats retrieved successfully', $beats);
+
         } catch (\Throwable $th) {
             return $this->errorResponse('Trending beats not found');
         }
@@ -147,27 +148,27 @@ class BeatController extends Controller
     {
         try {
             $beat = Beat::find($id);
-          
-    
+
+
             if (!$beat) {
                 return $this->errorResponse('Beat not found');
             }
-    
+
             $downloadInfo = MediaService::downloadAsset($beat->fileUrl);
-            
-        
+
+
             // Prepare the response for download
             $filename = $downloadInfo['filename'];
             $contentType = $downloadInfo['content-type'];
             $fileContent = $downloadInfo['content'];
-    
+
             $headers = [
                 'Content-Type' => $contentType,
                 'Content-Disposition' => 'attachment; filename="' . $filename . '"',
             ];
-    
+
             //update beat download count
-            $beat->increment('download_count'); 
+            $beat->increment('download_count');
 
             //update producer download count
             $beat->producer->increment('total_downloads');
@@ -178,7 +179,6 @@ class BeatController extends Controller
             return response()->stream(function () use ($fileContent) {
                 echo $fileContent;
             }, 200, $headers);
-
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());
         }

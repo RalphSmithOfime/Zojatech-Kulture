@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\api\{AuthController, BeatController, GenreController, UserController, ProducerController, FavouriteController};
+use App\Http\Controllers\api\{AuthController, BeatController, GenreController, PaymentController, UserController, ProducerController, FavouriteController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckOwnership;
 
@@ -59,6 +59,14 @@ Route::prefix('v1')->group(function () {
 
     // Declare authenticated routes
     Route::group(['middleware' => 'auth:api'], static function () {
+
+        //payment routes
+        Route::post('/pay', [PaymentController::class, 'makePayment']);
+        Route::post('/verifyPayment', [PaymentController::class, 'store']);
+        Route::post('/createRecipient', [PaymentController::class, 'createRecipient']);
+        Route::post('/withdraw', [PaymentController::class, 'initiateWithdrawal']);
+
+
 
         //Admin routes
         Route::prefix('admin')->group(function () {

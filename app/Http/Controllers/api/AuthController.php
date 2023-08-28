@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use App\Services\MediaService;
 use Illuminate\Http\JsonResponse;
-use App\Models\{User, Producer, };
+use App\Models\{User, Producer,};
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
@@ -30,7 +30,7 @@ class AuthController extends Controller
         $user = User::create(array_merge(
             $request->validated(),
             [
-                'username' =>  $request->username,
+                'username' => $request->username,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
@@ -46,12 +46,12 @@ class AuthController extends Controller
         } elseif ($data['user_type'] === 'artiste') {
             $user->artistes()->create(['user_id' => $user->id]);
         }
-       
+
         return $this->successResponse('User created successfully', [
             'user' => new UserResources($user)
         ]);
     }
-    
+
     public function signin(LoginRequest $request): JsonResponse
     {
 
@@ -76,6 +76,5 @@ class AuthController extends Controller
         Auth::logout();
 
         return $this->successResponse('User logged out successfully');
-        
     }
 }
