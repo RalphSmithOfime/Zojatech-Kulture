@@ -191,12 +191,15 @@ class BeatController extends Controller
         if (!$user->favoriteBeats->contains($beat)) {
             $user->favoriteBeats()->attach($beat);
 
-            // Add code to send a notification to the beat owner
+            if ($beat->user->id !== $user->id) {
+                $beat->user->notify(new BeatFavorited($beat, $user->name));
+            }
+    
 
-            return redirect()->back()->with('success', 'Beat favorited!');
+            return redirect()->back()->with('success', 'Beat saved for later!');
         }
 
-        return redirect()->back()->with('error', 'Beat already favorited.');
+        return redirect()->back()->with('Error', 'Beat already saved for later!.');
     }
     
 }

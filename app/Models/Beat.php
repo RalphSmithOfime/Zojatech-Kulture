@@ -47,8 +47,8 @@ class Beat extends Model
         return $this->belongsTo(Producer::class);
     }
 
-    public function likers()
+    public function favouritedBy()
     {
-        return $this->belongsToMany(User::class, 'likes', 'beat_id', 'user_id');
+        return $this->belongsToMany(User::class, 'favourites', 'beat_id', 'user_id');
     }
 }
