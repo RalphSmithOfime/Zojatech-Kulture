@@ -51,4 +51,8 @@ class Beat extends Model
     {
         return $this->belongsToMany(User::class, 'favourites', 'beat_id', 'user_id');
     }
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }

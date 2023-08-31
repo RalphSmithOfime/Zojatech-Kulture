@@ -97,4 +97,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Beat::class, 'favourites', 'user_id', 'beat_id');
     }
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }

@@ -111,7 +111,10 @@ Route::prefix('v1')->group(function () {
             Route::get('/user/favourites', [FavouriteController::class, 'index'])->name('favourite.index');
         });
 
-        Route::post('beats/{id}/favorites', 'BeatController@favorite')->name('beats.favorite');
+        Route::post('beats/{id}/favorites', [BeatController::class, 'favorite'])->name('beats.favorite');
+
+        //SEARCH ROUTES
+        Route::get('/search/beats', [SearchController::class, 'searchBeats'])->name('searchBeats');
 
 
     });

@@ -184,7 +184,7 @@ class BeatController extends Controller
         }
     }
 
-    public function favorite(Beat $beat)
+    public function favorite(User $user, Beat $beat)
     {
         $user = Auth::user();
         
