@@ -20,10 +20,10 @@ return [
     'allowed_methods' => ['POST', 'GET', 'DELETE', 'PUT', 'OPTIONS', '*'],
 
     'allowed_origins' => [
-        'https://kulture-lac.vercel.app/',
-        'https://zojatech-kulture.netlify.app/',
-        'http://127.0.0.1:5174/',
-        'http://127.0.0.1:5173/',
+        'https://kulture-lac.vercel.app',
+        'https://zojatech-kulture.netlify.app',
+        'http://127.0.0.1:5174',
+        'http://127.0.0.1:5173',
         'exp://172.20.10.4:19000',
         'http://172.20.10.4:19000',
         'exp://172.20.10.4:19001',
