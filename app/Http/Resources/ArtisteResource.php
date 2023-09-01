@@ -5,11 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/**
- * @mixin \App\Models\Producer
- */
-
-class ProducerResources extends JsonResource
+class ArtisteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,23 +14,20 @@ class ProducerResources extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->id,
-            'type' => 'Producer',
+            'type' => 'Artiste',
             'data' => $this->user,
             'attributes' => [
-                'total_revenue' => $this->total_revenue,
-                'total_sales' => $this->total_sales,
-                'total_beats' => $this->total_beats,
+                'total_beats_purchased' => $this->beats_purchased,
                 'profile_views' => $this->profile_views,
-                'total_beats_sold' => $this->total_beats_sold,
-                'total_downloads' => $this->total_downloads,
+                'total_amount_spent' => $this->total_amount_spent,
                 'created_at' => $this->created_at,
 
             ],
-            'beats_liked_by_artistes' => $this->likedBeats,
-            'uploaded_beats' => $this->beats,
-            
+            'purchased_beats' => [],
+            'favourite_beats' => $this->favourites
 
         ];
     }

@@ -88,13 +88,4 @@ class User extends Authenticatable
         return $this->hasOne(Artiste::class);
     }
 
-    public function guardName(): mixed
-    {
-        return 'api';
-    }
-
-    public function favouriteBeats()
-    {
-        return $this->belongsToMany(Beat::class, 'favourites', 'user_id', 'beat_id');
-    }
 }

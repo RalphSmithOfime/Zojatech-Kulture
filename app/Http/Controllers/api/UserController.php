@@ -29,9 +29,7 @@ class UserController extends Controller
 
             // dd($user);
 
-            return $this->successResponse('User retrieved succcessfully', [
-                'data' => new UserResources($user)
-            ]);
+            return $this->successResponse('User retrieved succcessfully', new UserResources($user));
         } catch (\Throwable $th) {
 
             return $this->errorResponse('user not found', 404);
@@ -58,10 +56,7 @@ class UserController extends Controller
             $user = User::findOrFail($user);
             $user->delete();
 
-            return response()->json([
-                'message' => "user delete successfully",
-                'data' => new UserResources($user),
-            ], 200);
+            return $this->successResponse('User deleted successfully', new UserResources($user));
         } catch (\Throwable $th) {
             return $this->errorResponse('User not found', 404);
         }

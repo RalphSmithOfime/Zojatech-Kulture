@@ -45,4 +45,10 @@ class Producer extends User
         return $this->hasMany(Beat::class);
     }
 
+    public function likedBeats()
+    {
+        return $this->hasMany(Beat::class)
+            ->whereHas('favourites'); 
+    }
+
 }

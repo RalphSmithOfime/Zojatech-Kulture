@@ -14,17 +14,14 @@ class FavouriteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return[
-            'id' => strval($this->id),
-            'type' => 'favourite_beat',
-            'relationships' => [
-                'user' => [
-                    'id' => strval($this->user_id)
-                ],
-                'beat' => [
-                    'id' => strval($this->beat_id)
-                ]
-            ]
+        
+        return [
+            'id' =>strval($this->id),
+            'name' => $this->name,
+            'genre' => $this->genre,
+            'imageUrl' => $this->imageUrl,
+            'price' => $this->price,
+            'fileUrl' => $this->fileUrl
         ];
     }
 }

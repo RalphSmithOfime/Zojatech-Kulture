@@ -549,3 +549,514 @@ Response Body:
 }
 
 ```
+
+
+### Favourites<a name="favourites"></a>
+
+Endpoint: `GET /api/v1/favourites/:id/beats`<a name="fetch-favourite-beats"></a>
+
+This endpoint gets a user's favourites
+NOTE: The ID here is the user's id (current logged in user)
+
+Response Body:
+
+```json
+
+{
+    "message": "favourites displayed successfully",
+    "favourites": [
+        {
+            "id": "01h93pg84cq5pxm7ssfwprg3s3",
+            "name": "Hip Hop Hop",
+            "genre": "Rock",
+            "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415117/beatsImages/mlvswbuz0dxe6as4fiyi.png",
+            "price": 200,
+            "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693415123/beatsAudios/ymij42retslc792butow.mp3"
+        },
+        {
+            "id": "01h93pgs32zbs85r1y230nhm2f",
+            "name": "Hip Hop Hop",
+            "genre": "Rock",
+            "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415133/beatsImages/sdsodjmcatjkyew4tby4.png",
+            "price": 200,
+            "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693415141/beatsAudios/ibxpr8pawjrz7m1dktuk.mp3"
+        }
+    ]
+}
+```
+
+### Favourites<a name="favourites"></a>
+
+Endpoint: `POST /api/v1/favourites/:id`<a name="add-favourite-beat"></a>
+
+This endpoint adds a beat to a user's favourite collection.
+NOTE: The ID here is the beat's id.
+
+Response Body:
+
+```json
+
+{
+    "message": "beat added to favourites"
+}
+```
+
+### Favourites<a name="favourites"></a>
+
+Endpoint: `DELETE /api/v1/favourites/:id`<a name="delete-favourite-beat"></a>
+
+This endpoint adds a beat to a user's favourite collection.
+NOTE: The ID here is the beat's id.
+
+Response Body:
+
+```json
+
+{
+    "message": "Beat removed from favourites."
+}
+```
+
+### PRODUCERS<a name="producers"></a>
+
+Endpoint: `GET /api/v1/producers`<a name="fetch-all-producers"></a>
+
+Response Body:
+
+```json
+
+{
+    "status": true,
+    "message": "Producers retrieved successfully",
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": "01h95h01ehethae3nnxj08477v",
+                "type": "Producer",
+                "data": {
+                    "id": "01h95h01e49hd2xwx3f0wpft9n",
+                    "username": "Jazlyn",
+                    "first_name": "O'Conner",
+                    "last_name": "Kaelyn",
+                    "email": "sk@gmail.com",
+                    "user_type": "producer",
+                    "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693476455/profileImages/m3zlg9thl2appacfqesa.jpg",
+                    "created_at": "2023-08-31T10:07:35.000000Z",
+                    "updated_at": "2023-08-31T10:07:35.000000Z",
+                    "referral_code": "KULTURE-YQ1EQ",
+                    "referred_by": "",
+                    "no_of_referrals": 0,
+                    "subscription_plan": "Free Plan",
+                    "upload_limit": 9,
+                    "subscription_plan_id": "01h93p9sg30q8bfvtrfhdwhms4"
+                },
+                "attributes": {
+                    "total_revenue": 0,
+                    "total_sales": 0,
+                    "total_beats": 0,
+                    "profile_views": 0,
+                    "total_beats_sold": 0,
+                    "total_downloads": 0,
+                    "created_at": "2023-08-31T10:07:35.000000Z"
+                },
+                "liked_beats": [],
+                "uploaded_beats": []
+            },
+            {
+                "id": "01h95gzj51gmqj1r2f82v8qjzm",
+                "type": "Producer",
+                "data": {
+                    "id": "01h95gzj4gbykagar890nypy6n",
+                    "username": "Hassan",
+                    "first_name": "Satterfield",
+                    "last_name": "Kolby",
+                    "email": "tega@gmail.com",
+                    "user_type": "producer",
+                    "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693476439/profileImages/uc1d8rkc6whyrnqjshwi.jpg",
+                    "created_at": "2023-08-31T10:07:20.000000Z",
+                    "updated_at": "2023-08-31T10:07:20.000000Z",
+                    "referral_code": "KULTURE-FVQBT",
+                    "referred_by": "",
+                    "no_of_referrals": 0,
+                    "subscription_plan": "Free Plan",
+                    "upload_limit": 9,
+                    "subscription_plan_id": "01h93p9sg30q8bfvtrfhdwhms4"
+                },
+                "attributes": {
+                    "total_revenue": 0,
+                    "total_sales": 0,
+                    "total_beats": 0,
+                    "profile_views": 0,
+                    "total_beats_sold": 0,
+                    "total_downloads": 0,
+                    "created_at": "2023-08-31T10:07:20.000000Z"
+                },
+                "liked_beats": [],
+                "uploaded_beats": []
+            },
+            {
+                "id": "01h93pde35txtad379aeydwhxf",
+                "type": "Producer",
+                "data": {
+                    "id": "01h93pde2qzjy8kp4qaj7bqm25",
+                    "username": "Darrel",
+                    "first_name": "Stanton",
+                    "last_name": "Jayda",
+                    "email": "ade@gmail.com",
+                    "user_type": "producer",
+                    "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415031/profileImages/lku1lchrq8dtb9wodmgf.jpg",
+                    "created_at": "2023-08-30T17:03:48.000000Z",
+                    "updated_at": "2023-08-30T17:03:48.000000Z",
+                    "referral_code": "KULTURE-VTKAT",
+                    "referred_by": "",
+                    "no_of_referrals": 0,
+                    "subscription_plan": "Free Plan",
+                    "upload_limit": 9,
+                    "subscription_plan_id": "01h93p9sg30q8bfvtrfhdwhms4"
+                },
+                "attributes": {
+                    "total_revenue": 0,
+                    "total_sales": 0,
+                    "total_beats": 2,
+                    "profile_views": 3,
+                    "total_beats_sold": 0,
+                    "total_downloads": 0,
+                    "created_at": "2023-08-30T17:03:48.000000Z"
+                },
+                "liked_beats": [
+                    {
+                        "id": "01h93pg84cq5pxm7ssfwprg3s3",
+                        "name": "Hip Hop Hop",
+                        "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415117/beatsImages/mlvswbuz0dxe6as4fiyi.png",
+                        "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693415123/beatsAudios/ymij42retslc792butow.mp3",
+                        "price": 200,
+                        "genre": "Rock",
+                        "duration": "00:51",
+                        "size": 3028199,
+                        "type": "audio/mpeg",
+                        "total_sales": 0,
+                        "play_count": 0,
+                        "view_count": 0,
+                        "like_count": 1,
+                        "download_count": 0,
+                        "created_at": "2023-08-30T17:05:21.000000Z",
+                        "updated_at": "2023-08-31T09:47:41.000000Z",
+                        "genre_id": "01h93p9y2q6mfz7q9tmphvw6rc",
+                        "user_id": "01h93pde2qzjy8kp4qaj7bqm25",
+                        "producer_id": "01h93pde35txtad379aeydwhxf"
+                    },
+                    {
+                        "id": "01h93pgs32zbs85r1y230nhm2f",
+                        "name": "Hip Hop Hop",
+                        "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415133/beatsImages/sdsodjmcatjkyew4tby4.png",
+                        "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693415141/beatsAudios/ibxpr8pawjrz7m1dktuk.mp3",
+                        "price": 200,
+                        "genre": "Rock",
+                        "duration": "00:51",
+                        "size": 3028199,
+                        "type": "audio/mpeg",
+                        "total_sales": 0,
+                        "play_count": 0,
+                        "view_count": 0,
+                        "like_count": 2,
+                        "download_count": 0,
+                        "created_at": "2023-08-30T17:05:38.000000Z",
+                        "updated_at": "2023-08-31T09:48:43.000000Z",
+                        "genre_id": "01h93p9y2q6mfz7q9tmphvw6rc",
+                        "user_id": "01h93pde2qzjy8kp4qaj7bqm25",
+                        "producer_id": "01h93pde35txtad379aeydwhxf"
+                    }
+                ],
+                "uploaded_beats": [
+                    {
+                        "id": "01h93pg84cq5pxm7ssfwprg3s3",
+                        "name": "Hip Hop Hop",
+                        "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415117/beatsImages/mlvswbuz0dxe6as4fiyi.png",
+                        "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693415123/beatsAudios/ymij42retslc792butow.mp3",
+                        "price": 200,
+                        "genre": "Rock",
+                        "duration": "00:51",
+                        "size": 3028199,
+                        "type": "audio/mpeg",
+                        "total_sales": 0,
+                        "play_count": 0,
+                        "view_count": 0,
+                        "like_count": 1,
+                        "download_count": 0,
+                        "created_at": "2023-08-30T17:05:21.000000Z",
+                        "updated_at": "2023-08-31T09:47:41.000000Z",
+                        "genre_id": "01h93p9y2q6mfz7q9tmphvw6rc",
+                        "user_id": "01h93pde2qzjy8kp4qaj7bqm25",
+                        "producer_id": "01h93pde35txtad379aeydwhxf"
+                    },
+                    {
+                        "id": "01h93pgs32zbs85r1y230nhm2f",
+                        "name": "Hip Hop Hop",
+                        "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693415133/beatsImages/sdsodjmcatjkyew4tby4.png",
+                        "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693415141/beatsAudios/ibxpr8pawjrz7m1dktuk.mp3",
+                        "price": 200,
+                        "genre": "Rock",
+                        "duration": "00:51",
+                        "size": 3028199,
+                        "type": "audio/mpeg",
+                        "total_sales": 0,
+                        "play_count": 0,
+                        "view_count": 0,
+                        "like_count": 2,
+                        "download_count": 0,
+                        "created_at": "2023-08-30T17:05:38.000000Z",
+                        "updated_at": "2023-08-31T09:48:43.000000Z",
+                        "genre_id": "01h93p9y2q6mfz7q9tmphvw6rc",
+                        "user_id": "01h93pde2qzjy8kp4qaj7bqm25",
+                        "producer_id": "01h93pde35txtad379aeydwhxf"
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+
+### PRODUCERS<a name="producers"></a>
+
+Endpoint: `POST /api/v1/producers/:id`<a name="fetch-producer-by-id"></a>
+
+NOTE: The ID here is the user's id (current logged in user)
+
+Response Body:
+
+```json
+
+{
+    "status": true,
+    "message": "Producer retrieved successfully",
+    "data": {
+        "data": {
+            "id": "01h96bc8hqxk4xvm23fzg7hsna",
+            "type": "Producer",
+            "data": {
+                "id": "01h96bc8h6h2870rmt21esvnzn",
+                "username": "Ansley",
+                "first_name": "Thompson",
+                "last_name": "Anahi",
+                "email": "olu@gmail.com",
+                "user_type": "producer",
+                "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504122/profileImages/hynqfyjmkfhq3dwamsha.jpg",
+                "created_at": "2023-08-31T17:48:39.000000Z",
+                "updated_at": "2023-08-31T17:48:39.000000Z"
+            },
+            "attributes": {
+                "total_revenue": 0,
+                "total_sales": 0,
+                "total_beats": 2,
+                "profile_views": 1,
+                "total_beats_sold": 0,
+                "total_downloads": null,
+                "created_at": "2023-08-31T17:48:39.000000Z"
+            },
+            "beats_liked_by_artistes": [
+                {
+                    "id": "01h96btn5abm6x013f57vf9nb1",
+                    "name": "Hip Hop Hop",
+                    "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504588/beatsImages/qctpkudxm8bpr4pfzrto.png",
+                    "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693504594/beatsAudios/phum0itoej7iwxkpb354.mp3",
+                    "price": 200,
+                    "genre": "Rock",
+                    "duration": "00:51",
+                    "size": 3028199,
+                    "type": "audio/mpeg",
+                    "total_sales": 0,
+                    "play_count": 0,
+                    "view_count": 1,
+                    "like_count": 2,
+                    "download_count": 0,
+                    "created_at": "2023-08-31T17:56:31.000000Z",
+                    "updated_at": "2023-08-31T18:59:21.000000Z",
+                    "genre_id": "01h96bm9fc4avtp7k4f6b0r3eq",
+                    "user_id": "01h96bc8h6h2870rmt21esvnzn",
+                    "producer_id": "01h96bc8hqxk4xvm23fzg7hsna"
+                }
+            ],
+            "uploaded_beats": [
+                {
+                    "id": "01h96bsxj2mb2kmdkaemrax7xn",
+                    "name": "Hip Hop Hop",
+                    "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504564/beatsImages/ewzaiqbh1pjer6epg3qn.png",
+                    "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693504570/beatsAudios/gbhdoh1lvuqbd9rfzstg.mp3",
+                    "price": 200,
+                    "genre": "Rock",
+                    "duration": "00:51",
+                    "size": 3028199,
+                    "type": "audio/mpeg",
+                    "total_sales": 0,
+                    "play_count": 0,
+                    "view_count": 0,
+                    "like_count": 0,
+                    "download_count": 0,
+                    "created_at": "2023-08-31T17:56:06.000000Z",
+                    "updated_at": "2023-08-31T17:56:06.000000Z",
+                    "genre_id": "01h96bm9fc4avtp7k4f6b0r3eq",
+                    "user_id": "01h96bc8h6h2870rmt21esvnzn",
+                    "producer_id": "01h96bc8hqxk4xvm23fzg7hsna"
+                },
+                {
+                    "id": "01h96btn5abm6x013f57vf9nb1",
+                    "name": "Hip Hop Hop",
+                    "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504588/beatsImages/qctpkudxm8bpr4pfzrto.png",
+                    "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693504594/beatsAudios/phum0itoej7iwxkpb354.mp3",
+                    "price": 200,
+                    "genre": "Rock",
+                    "duration": "00:51",
+                    "size": 3028199,
+                    "type": "audio/mpeg",
+                    "total_sales": 0,
+                    "play_count": 0,
+                    "view_count": 1,
+                    "like_count": 2,
+                    "download_count": 0,
+                    "created_at": "2023-08-31T17:56:31.000000Z",
+                    "updated_at": "2023-08-31T18:59:21.000000Z",
+                    "genre_id": "01h96bm9fc4avtp7k4f6b0r3eq",
+                    "user_id": "01h96bc8h6h2870rmt21esvnzn",
+                    "producer_id": "01h96bc8hqxk4xvm23fzg7hsna"
+                }
+            ]
+        }
+    }
+}
+```
+
+### ARTISTES<a name="artistes"></a>
+
+Endpoint: `GET /api/v1/artistes`<a name="fetch-all-artistes"></a>
+
+Response Body:
+
+```json
+
+{
+    "status": true,
+    "message": "Artistes retrieved successfully",
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": "01h96bb7fmxqzsxs7havhnkt3x",
+                "type": "Artiste",
+                "data": {
+                    "id": "01h96bb7f2n7vbqsmacr7r4z32",
+                    "username": "Reba",
+                    "first_name": "White",
+                    "last_name": "Deondre",
+                    "email": "ade@gmail.com",
+                    "user_type": "artiste",
+                    "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504088/profileImages/xhgnsf59iz1c1yc0wecn.jpg",
+                    "created_at": "2023-08-31T17:48:05.000000Z",
+                    "updated_at": "2023-08-31T17:48:05.000000Z"
+                },
+                "attributes": {
+                    "total_beats_purchased": 0,
+                    "profile_views": 0,
+                    "total_amount_spent": 0,
+                    "created_at": "2023-08-31T17:48:05.000000Z"
+                },
+                "purchased_beats": [],
+                "favourite_beats": []
+            },
+            {
+                "id": "01h96b5kp2at77hcap12ebv7bn",
+                "type": "Artiste",
+                "data": {
+                    "id": "01h96b5knaekrh58mn5f8ny5jz",
+                    "username": "Rocio",
+                    "first_name": "Daugherty",
+                    "last_name": "Florence",
+                    "email": "idan@gmail.com",
+                    "user_type": "artiste",
+                    "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693503904/profileImages/jlkpgor0rxrrzwelilp7.jpg",
+                    "created_at": "2023-08-31T17:45:01.000000Z",
+                    "updated_at": "2023-08-31T17:45:01.000000Z"
+                },
+                "attributes": {
+                    "total_beats_purchased": 0,
+                    "profile_views": 0,
+                    "total_amount_spent": 0,
+                    "created_at": "2023-08-31T17:45:01.000000Z"
+                },
+                "purchased_beats": [],
+                "favourite_beats": [
+                    {
+                        "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693504594/beatsAudios/phum0itoej7iwxkpb354.mp3",
+                        "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504588/beatsImages/qctpkudxm8bpr4pfzrto.png",
+                        "genre": "Rock",
+                        "name": "Hip Hop Hop",
+                        "price": 200,
+                        "id": "01h96btn5abm6x013f57vf9nb1",
+                        "pivot": {
+                            "artiste_id": "01h96b5kp2at77hcap12ebv7bn",
+                            "beat_id": "01h96btn5abm6x013f57vf9nb1",
+                            "created_at": "2023-08-31T18:59:21.000000Z",
+                            "updated_at": "2023-08-31T18:59:21.000000Z"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+### ARTISTES<a name="artistes"></a>
+
+Endpoint: `GET /api/v1/artistes/:id`<a name="fetch-all-artistes"></a>
+
+NOTE: The ID here is the user's id (current logged in user)
+
+Response Body:
+
+```json
+
+{
+    "status": true,
+    "message": "Artiste retrieved successfully",
+    "data": {
+        "id": "01h96b5kp2at77hcap12ebv7bn",
+        "type": "Artiste",
+        "data": {
+            "id": "01h96b5knaekrh58mn5f8ny5jz",
+            "username": "Rocio",
+            "first_name": "Daugherty",
+            "last_name": "Florence",
+            "email": "idan@gmail.com",
+            "user_type": "artiste",
+            "profile_picture": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693503904/profileImages/jlkpgor0rxrrzwelilp7.jpg",
+            "created_at": "2023-08-31T17:45:01.000000Z",
+            "updated_at": "2023-08-31T17:45:01.000000Z"
+        },
+        "attributes": {
+            "total_beats_purchased": 0,
+            "profile_views": 1,
+            "total_amount_spent": 0,
+            "created_at": "2023-08-31T17:45:01.000000Z"
+        },
+        "purchased_beats": [],
+        "favourite_beats": [
+            {
+                "fileUrl": "https://res.cloudinary.com/diwh5hq91/video/upload/v1693504594/beatsAudios/phum0itoej7iwxkpb354.mp3",
+                "imageUrl": "https://res.cloudinary.com/diwh5hq91/image/upload/v1693504588/beatsImages/qctpkudxm8bpr4pfzrto.png",
+                "genre": "Rock",
+                "name": "Hip Hop Hop",
+                "price": 200,
+                "id": "01h96btn5abm6x013f57vf9nb1",
+                "pivot": {
+                    "artiste_id": "01h96b5kp2at77hcap12ebv7bn",
+                    "beat_id": "01h96btn5abm6x013f57vf9nb1",
+                    "created_at": "2023-08-31T18:59:21.000000Z",
+                    "updated_at": "2023-08-31T18:59:21.000000Z"
+                }
+            }
+        ]
+    }
+}

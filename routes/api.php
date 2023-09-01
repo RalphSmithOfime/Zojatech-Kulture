@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\api\{AuthController, BeatController, GenreController, PaymentController, UserController, ProducerController, FavouriteController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckOwnership;
 
@@ -20,6 +19,7 @@ use App\Http\Middleware\CheckOwnership;
 Route::prefix('v1')->group(function () {
 
 
+
     // Declare unauthenticated routes
     Route::group(['middleware' => 'guest'], function () {
 
@@ -27,7 +27,7 @@ Route::prefix('v1')->group(function () {
         Route::any('/', function () {
             return response()->json(['message' => 'Welcome to Kulture Api'], 200);
         })->name('welcome');
-
+        // Route::post('/upload', [BeatController::class, 'upload'])->name('beats.upload');
         Route::post('/register', [AuthController::class, 'register'])->name('register');
 
         Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
@@ -48,25 +48,26 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/producers/{id}', [ProducerController::class, 'show'])->name('producers.show');
 
+        Route::get('/artistes', [ArtisteController::class, 'index'])->name('artistes.index');
+
+        Route::post('/artistes/{id}', [ArtisteController::class, 'show'])->name('artistes.show');
+
         Route::prefix('trending')->group(function () {
             Route::get('/beats', [BeatController::class, 'trending'])->name('beats.trending');
             Route::get('/producers', [ProducerController::class, 'trendingProducers'])->name('producers.trending');
             Route::get('/genres', [GenreController::class, 'trending'])->name('genres.trending');
         });
     });
+    //Authentication
+
+
+
+
 
 
 
     // Declare authenticated routes
     Route::group(['middleware' => 'auth:api'], static function () {
-
-        //payment routes
-        Route::post('/pay', [PaymentController::class, 'makePayment']);
-        Route::post('/verifyPayment', [PaymentController::class, 'store']);
-        Route::post('/createRecipient', [PaymentController::class, 'createRecipient']);
-        Route::post('/withdraw', [PaymentController::class, 'initiateWithdrawal']);
-
-
 
         //Admin routes
         Route::prefix('admin')->group(function () {
@@ -78,6 +79,14 @@ Route::prefix('v1')->group(function () {
                 Route::post('/update', [GenreController::class, 'update'])->name('genre.update');
                 Route::post('/delete', [GenreController::class, 'delete'])->name('genre.delete');
             });
+
+            Route::prefix('subscription')->group(function () {
+                Route::post('/create', [SubscriptionController::class, 'store'])->name('subscription.store');
+                Route::get('', [SubscriptionController::class, 'index'])->name('subscription.index');
+                Route::post('/{id}', [SubscriptionController::class, 'show'])->name('subscription.show');
+            });
+
+           
         });
 
         //User routes
@@ -105,14 +114,5 @@ Route::prefix('v1')->group(function () {
         Route::prefix('downloads')->group(function () {
             Route::get('/beats/{id}', [BeatController::class, 'download'])->name('beats.download');
         });
-
-        //FAVOURITE CONTROLLER
-        Route::group(['middleware' => [UserFav::class]], static function () {
-            Route::get('/user/favourites', [FavouriteController::class, 'index'])->name('favourite.index');
-        });
-
-        Route::post('beats/{id}/favorites', 'BeatController@favorite')->name('beats.favorite');
-
-
     });
 });
