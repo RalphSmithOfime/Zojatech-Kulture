@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('artistes', function (Blueprint $table) {
-            $table->integer('total_amount_spent')->default('0');
-
+        //
+        Schema::table('beats', function (Blueprint $table) {
+            $table->string('license_type')->nullable();
+            $table->integer('available_copies')->default(0);
         });
     }
 

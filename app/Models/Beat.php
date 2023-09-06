@@ -25,10 +25,12 @@ class Beat extends Model
         'genre_id',
         'user_id',
         'producer_id',
+        'license_type',
+        'available_copies',
     ];
 
 
-     // Hide the pivot table
+    // Hide the pivot table
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -52,16 +54,21 @@ class Beat extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Producer, \App\Models\Beat>
      */
-    
+
     public function producer(): BelongsTo
     {
         return $this->belongsTo(Producer::class);
     }
 
+    /**
+     * Get the user associated with the beat.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User, \App\Models\Beat>
+     */
+
     public function favourites(): BelongsToMany
     {
         return $this->belongsToMany(Artiste::class, 'favourites', 'beat_id', 'artiste_id')
-        ->withTimestamps();
+            ->withTimestamps();
     }
-    
 }

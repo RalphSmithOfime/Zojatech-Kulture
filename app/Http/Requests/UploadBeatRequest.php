@@ -27,7 +27,9 @@ class UploadBeatRequest extends FormRequest
             'audio' => 'required|mimes:mpga,wav,mp3,octet-stream',
             'price' => 'required|numeric',
             'genre' => 'required|exists:genres,name',
-            'image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'license_type' => 'required|string',
+            'available_copies' => 'required|numeric',
            
         ];
     }
