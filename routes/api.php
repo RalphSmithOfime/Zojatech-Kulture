@@ -118,7 +118,15 @@ Route::prefix('v1')->group(function () {
                 Route::put('/{id}', [BeatController::class, 'update'])->name('beats.update');
                 Route::delete('/{id}', [BeatController::class, 'destroy'])->name('beats.delete');
             });
+
+            
         });
+        //Filter beats route by genre
+        Route::get('/beats/filter', [BeatController::class, 'filterByGenre'])->name('beats.filter');
+        //Filter beats by price
+        Route::get('/beats/filter-by-price', [BeatController::class, 'filterByPrice'])->name('beats.filterByPrice');
+        //Search beats route
+        Route::get('/beats/search', [BeatController::class, 'searchByTitle'])->name('beats.search');
 
 
         Route::prefix('downloads')->group(function () {

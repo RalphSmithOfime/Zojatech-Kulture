@@ -201,5 +201,41 @@ class BeatController extends Controller
 
         return redirect()->back()->with('Error', 'Beat already saved for later!.');
     }
+
+    public function filterByGenre(Request $request): JsonResponse
+    {
+        $genre = $request->input('genre');
+        $beats = Beat::where('genre', $genre)->get();
+
+        return response()->json(['beats' => $beats]);
+    }
+    public function filterByPrice(Request $request): JsonResponse
+    {
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
+
+        $beats = Beat::whereBetween('price', [$minPrice, $maxPrice])->get();
+
+        return response()->json(['beats' => $beats]);
+    }
+
+    public function searchByTitle(Request $request): JsonResponse
+    {
+        $query = $request->input('query');
+
+        $beats = Beat::where('title', 'LIKE', "%$query%")
+            ->orWhere('genre', 'LIKE', "%$query%")
+            ->get();
+
+        // Check if no results were found for both beats and users
+        if ($beats->isEmpty()) {
+            return response()->json(['message' => 'No results found.'], 404);
+        }
+
+        return response()->json([
+            'beats' => $beats,
+        ]);
+    }
+
     
 }
