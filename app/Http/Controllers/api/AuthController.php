@@ -8,6 +8,7 @@ use App\Traits\ResponseTrait;
 use App\Services\MediaService;
 use Illuminate\Http\JsonResponse;
 use App\Models\{User, Producer,};
+use App\Models\{Cart, User, Producer, };
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
@@ -45,6 +46,8 @@ class AuthController extends Controller
             $user->producers()->create(['user_id' => $user->id]);
         } elseif ($data['user_type'] === 'artiste') {
             $user->artistes()->create(['user_id' => $user->id]);
+            Cart::create(['user_id' => $user->id, 'items' => []]);
+
         }
 
         return $this->successResponse('User created successfully', [

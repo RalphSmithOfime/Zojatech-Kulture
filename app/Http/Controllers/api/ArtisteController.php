@@ -47,6 +47,7 @@ class ArtisteController extends Controller
 
             return $this->successResponse('Artiste retrieved successfully', new ArtisteResource($artiste));
         } catch (\Throwable $th) {
+            // return response()->json(['exception' => $th->getMessage()]);
             return $this->errorResponse('User not found');
         }
     }

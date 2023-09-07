@@ -29,22 +29,22 @@ class ProducerController extends Controller
     public function show(string $id)
     {
         try {
-            $producer = User::findOrFail($id);
-
-            if(!$producer){
+            $user = User::findOrFail($id);
+            
+            $producer = Producer::where('user_id', $user->id)->first();
+    
+            if (!$producer) {
                 return $this->errorResponse('User is not a Producer');
-            } else{
-                $producer = Producer::where('user_id', $id)->first();
-
             }
-
-            //update Producer view count
+    
+            // Update the producer's view count
             $producer->increment('profile_views');
-
+    
             return $this->successResponse('Producer retrieved successfully', [
                 'data' => new ProducerResources($producer)
             ]);
         } catch (\Throwable $th) {
+            // return response()->json(['exception' => $th->getMessage()]);
             return $this->errorResponse('User not found');
         }
     }

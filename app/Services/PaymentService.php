@@ -37,6 +37,7 @@ class PaymentService
     public function initializePayment(array $data): mixed
     {
         $url = '/transaction/initialize';
+        $data['amount'] *= 100;
         $response = $this->hitPaystack('POST', $url, $data);
         return $response['authorization_url'];
     }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Requests\PaymentRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Beat;
 use App\Models\Payment;
 use App\Models\Producer;
+use App\Models\Cart;
 use App\Models\User;
 use App\Services\PaymentService;
 use App\Traits\ResponseTrait;
@@ -31,29 +33,32 @@ class PaymentController extends Controller
     {
         $user = auth()->user();
         $ref = uniqid();
+        $cart = Cart::findorfail($request->cart_id);
+        if(count($cart->items)== 0){
+            return $this->errorResponse('Nothing in cart');
+        }
         $data = [
-            'amount' => $request->amount * 100 * $request->quantity,
+            'amount' => $cart->total_price,
             'email' => $user?->email,
             'user_id' => $user?->id,
-            'quantity' => $request->quantity,
+            'cart_id' => $request->cart_id,
+            'cart_items' => $cart->items,
             'reference' => $ref,
             'callback_url' => route('verifyTransaction')
         ];
+
         Payment::create(Arr::except($data, ['callback_url', 'email']));
 
         $result = $this->paymentService->initializePayment($data);
 
-        return response()->json([
-            "message" => "Payment initialized",
-            "data" =>  $result,
-            'status' => 200
-        ]);
+        return $this->successResponse('Payment initialzed', $result);
     }
 
-    public function verifyTransaction(Request $request): JsonResponse
+    public function verifyPayment(Request $request): JsonResponse
     {
         try {
             $response =  $this->paymentService->verifyPayment($request->reference);
+            $user =auth()->user(); 
 
             if ($response['status'] == true) {
                 $payment = Payment::where('reference', $request->reference)->first();
@@ -62,20 +67,34 @@ class PaymentController extends Controller
                     return response()->json([
                         "message" => "Payment already verified",
                         "data" =>  $payment,
-                        'status' => 200
-                    ]);
+                    ], 409);
                 }
 
                 $payment->status = 'successful'; // @phpstan-ignore-line
                 $payment?->save();
 
+                // disburse funds / update all producers' wallet / update Admin wallet. 
+                    $cart = Cart::findorfail($payment->cart_id);
+                    foreach($cart->items as $item){
+                        //update beat details. 
+                        $beat = Beat::findorfail($item);
+                        $beat->producer->total_revenue += $beat->price;
+                        $beat->producer->increment('total_beats_sold');
+                        $beat->increment('total_sales');
+                        $cart->user->artistes->increment('beats_purchased');
+                        $cart->user->artistes->total_amount_spent += $beat->price;
+                        $beat->save();          
+                        $beat->producer->save();          
+                    }
 
+                    //todo: update access. 
+                    //todo: send Notification. 
 
-                return response()->json([
-                    "message" => "Payment Successful",
-                    "data" =>  'test',
-                    'status' => 200
-                ]);
+                    //empty cart
+                    $cart->update(['items' => [], 'total_price' => 0]);
+                    
+                    
+                    return $this->successResponse('Payment Successful', $payment);
             }
         } catch (\Throwable $th) {
             return response()->json([
@@ -108,10 +127,7 @@ class PaymentController extends Controller
         $user->recipient_code = $result['recipient_code'];
         $user->save();
 
-        return response()->json([
-            "message" => "Account details uploaded successfully",
-            'status' => 200
-        ]);
+        return $this->successResponse('Account details uploaded successfully');
     }
 
     public function initiateWithdrawal(Request $request): JsonResponse
