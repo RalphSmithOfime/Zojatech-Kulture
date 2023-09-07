@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use App\Services\MediaService;
 use Illuminate\Http\JsonResponse;
-use App\Models\{User, Producer,};
+//use App\Models\{User, Producer,};
 use App\Models\{Cart, User, Producer, };
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;

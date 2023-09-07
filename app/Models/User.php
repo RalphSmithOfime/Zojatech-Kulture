@@ -87,5 +87,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Artiste::class);
     }
+    public function savedBeats()
+    {
+        return $this->belongsToMany(Beat::class, 'save_for_later', 'artiste_id', 'beat_id');
+    }
 
 }
