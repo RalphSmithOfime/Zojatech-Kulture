@@ -194,31 +194,40 @@ class BeatController extends Controller
     //     return response()->json(['beats' => $beats], 200);
     // }
 
-    public function searchByTitle(Request $request) 
+    // public function searchByTitle(Request $request) 
+    // {
+    //     $beat = Beat::query();
+
+    //     if ($request->has('name')) {
+    //         $name = $request->input('name');
+    //         $beat->where('name', 'like', '%' .$name. '%');
+    //     }
+
+    //     if ($request->has('genre_id')) {
+    //         $genre = $request->input('genre_id');
+    //         $beat->where('genre_id', 'like', '%' .$genre. '%');
+    //     }
+
+    //     if ($request->has('type')) {
+    //         $type = $request->input('type');
+    //         $beat->where('type', 'like', '%' .$type. '%');
+    //     }
+
+    //     else{
+    //         $beats = Beats::all();
+    //     }
+
+    //     $filteredBeats = $beat->get();
+
+    //     return response()->json([
+    //         'message' => 'Searched beats successfully',
+    //         'data' => BeatResources::collection($filteredBeats)
+    //     ]);
+    // }
+
+    public function search($name):JsonResponse
     {
-        $beat = Beat::query();
-
-        if ($request->has('name')) {
-            $name = $request->input('name');
-            $beat->where('name', 'like', '%' .$name. '%');
-        }
-
-        if ($request->has('genre_id')) {
-            $genre = $request->input('genre_id');
-            $beat->where('genre_id', 'like', '%' .$genre. '%');
-        }
-
-        if ($request->has('type')) {
-            $type = $request->input('type');
-            $beat->where('type', 'like', '%' .$type. '%');
-        }
-
-        $filteredBeats = $beat->get();
-
-        return response()->json([
-            'message' => 'Searched beats successfully',
-            'data' => BeatResources::collection($filteredBeats)
-        ]);
+        return Beat::where('name', 'like','%' . $name . '%' )->get();
     }
 
     //filter by price

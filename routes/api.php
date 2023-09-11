@@ -61,7 +61,7 @@ Route::prefix('v1')->group(function () {
         });
 
         //beats search route
-        Route::get('/beats/search', [BeatController::class, 'searchByTitle'])->name('beats.search');
+        Route::get('/beats/search/{name}', [BeatController::class, 'search'])->name('beats.search');
 
         //beats filter by price
         Route::get('/beats/filter-by-price', [BeatController::class, 'filterByPrice'])->name('beats.filterByPrice');
