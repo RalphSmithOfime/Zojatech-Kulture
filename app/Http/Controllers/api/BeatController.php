@@ -225,7 +225,7 @@ class BeatController extends Controller
     //     ]);
     // }
 
-    public function search($name):JsonResponse
+    public function search($name) : JsonResponse
     {
         return Beat::where('name', 'like','%' . $name . '%' )->get();
     }
